@@ -1,3 +1,5 @@
+import AddToWishlistButton from "@/components/addToWishlist";
+
 export default function WishlistPage() {
   return (
     <div>

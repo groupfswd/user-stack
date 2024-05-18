@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getProducts } from "@/fetching/product";
 import { convertToRupiah } from "@/lib/convertRupiah";
-import { IoSearch } from "react-icons/io5";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -37,19 +37,21 @@ const ProductsPage = () => {
                 height={90}
                 className="w-full h-auto object-cover rounded-t-lg "
               />
-              <h2 className="mt-4 font-semibold text-lg text-gray-900 py-4">
+              <h2 className="mt-4 font-semibold text-2xl text-gray-900 py-4">
                 {product.name}
               </h2>
               <p className="text-sm text-gray-600">{product.description}</p>
               <p className="text-lg text-gray-900 font-semibold">
                 {convertToRupiah(product.price)}
               </p>
-              <button className="bg-blue-600 py-1 px-1 text-white rounded-full">
-                <Link href="/cart">Add to Cart</Link>
-              </button>
-              <p>
-                <Link href="/wishlist">Add to Wishlist</Link>
-              </p>
+              <div className="flex justify-between">
+                <button className="bg-blue-600 py-1 px-1 text-white rounded-full">
+                  <Link href="/cart">Add to Cart</Link>
+                </button>
+                <p>
+                  <Link href="/wishlist">Add to Wishlist</Link>
+                </p>
+              </div>
             </Link>
           </div>
         ))}

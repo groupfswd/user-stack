@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getDetailProduct } from "@/fetching/product";
+import { convertToRupiah } from "@/lib/convertRupiah";
 
 const ProductPage = ({ params }) => {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
-  const { id } = params; // Replace with the actual product ID you want to display
+  const { id } = params;
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -41,12 +42,12 @@ const ProductPage = ({ params }) => {
           height={90}
           className="w-full h-auto object-cover rounded-t-lg"
         />
-        <h2 className="mt-4 font-semibold text-lg text-gray-900 py-4">
+        <h2 className="mt-4 font-semibold text-2xl text-gray-900 py-4">
           {product.name}
         </h2>
         <p className="text-sm text-gray-600">{product.description}</p>
         <p className="text-lg text-gray-900 font-semibold">
-          Harga: Rp{product.price}
+          {convertToRupiah(product.price)}
         </p>
       </Link>
     </div>

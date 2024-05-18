@@ -1,9 +1,7 @@
-import AddToWishlistButton from "@/components/addToWishlist";
+import React from "react";
 
-export default function WishlistPage() {
-  return (
-    <div>
-      <h1>Wishlist Page</h1>
-    </div>
-  );
-}
+const Wishlist = () => {
+  return <div>Wishlist</div>;
+};
+
+export default Wishlist;

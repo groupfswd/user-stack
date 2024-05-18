@@ -2,6 +2,8 @@ import ProductTemplate from "@/components/productTemplate";
 import Image from "next/image";
 import Head from "next/head";
 import Hero from "@/components/hero";
+import ProductsPage from "./product/page";
+import Categories from "@/components/categories";
 
 export default function Home() {
   return (
@@ -9,7 +11,10 @@ export default function Home() {
       <Head>
         <meta charset="UTF-8" />
       </Head>
+
       <Hero />
+
+      <Categories />
 
       <div className="text-center mt-20">
         <h1 className="md:text-8xl text-4xl font-bold text-center text-gray-900">
@@ -18,7 +23,7 @@ export default function Home() {
         </h1>
       </div>
       <div>
-        <ProductTemplate />
+        <ProductsPage />
       </div>
     </>
   );

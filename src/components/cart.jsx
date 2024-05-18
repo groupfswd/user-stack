@@ -4,7 +4,7 @@ import React from "react";
 const Cart = () => {
   return (
     <div>
-      <h2 className="flex gap-8 items-center text-lg">
+      <h2>
         <ShoppingBag /> 0
       </h2>
     </div>

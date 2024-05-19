@@ -1,24 +1,47 @@
-"use client";
+import { useState } from "react";
 
-// components/AddToWishlistButton.js
-import axios from "axios";
-import React from "react";
+const Wishlist = () => {
+  const [productId, setProductId] = useState("");
 
-function AddToWishlistButton({ userId, productId }) {
-  const addToWishlist = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await axios.post("/api/addToWishlist", {
-        userId,
-        productId,
+      const response = await fetch("/api/wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ product_id: productId }),
       });
-      alert("Product added to wishlist!");
+
+      if (!response.ok) {
+        throw new Error("Failed to add to wishlist");
+      }
+
+      // Handle success, maybe redirect or show a success message
+      console.log("Added to wishlist successfully!");
     } catch (error) {
-      alert("Failed to add product to wishlist.");
-      console.error(error);
+      console.error("Error adding to wishlist:", error.message);
     }
   };
 
-  return <button onClick={addToWishlist}>Add to Wishlist</button>;
-}
+  return (
+    <div>
+      <h1>Add to Wishlist</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Product ID:
+          <input
+            type="text"
+            value={productId}
+            onChange={(e) => setProductId(e.target.value)}
+          />
+        </label>
+        <button type="submit">Add to Wishlist</button>
+      </form>
+    </div>
+  );
+};
 
-export default AddToWishlistButton;
+export default Wishlist;

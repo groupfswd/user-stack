@@ -1,9 +1,12 @@
-import { FaCarSide } from "react-icons/fa";
+import { IoIosBasketball } from "react-icons/io";
 
 function Categories() {
   return (
-    <div className="bg-gray-200">
-      <FaCarSide />
+    <div>
+      <div className="border border-black border-solid p-10 text-white">
+        <IoIosBasketball />
+        <h3 className="bg-black text-white">mainan</h3>
+      </div>
     </div>
   );
 }

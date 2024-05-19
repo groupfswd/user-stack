@@ -7,7 +7,7 @@ const Person = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-blue-600 text-white p-4 rounded-xl items-center w-15 h-10 my-auto pt-2">
+    <div className="bg-blue-600 text-white p-4 rounded-xl items-center w-15 h-10 my-auto pt-2 ">
       <div className="container  flex px-2  pb-4">
         <div className="flex items-center">
           <FaRegUser />

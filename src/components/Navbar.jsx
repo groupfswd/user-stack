@@ -14,7 +14,7 @@ export default function Navbar() {
 
       <Search />
 
-      <ul className=" my-5 mx-10 gap-5 md:flex hidden">
+      <div className=" my-5 mx-10 gap-5 md:flex hidden">
         <Link
           className="text-2xl font-semibold hover:border-b-4 hover:text-blue-500"
           href="/home"
@@ -33,8 +33,9 @@ export default function Navbar() {
         >
           Dashboard
         </Link>
-      </ul>
+      </div>
       <Cart />
+
       <Person />
     </div>
   );

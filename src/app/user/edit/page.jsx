@@ -4,6 +4,8 @@ import EditUser from "@/components/EditUser";
 
 export default function EditUserPage() {
   return (
-    <EditUser />
-    );
+    <div className="flex flex-col mt-20">
+      <EditUser />
+    </div>
+  );
 }

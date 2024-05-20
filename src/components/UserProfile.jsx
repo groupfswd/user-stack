@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { findUser } from "@/fetch/user";
-import { findAddress } from "@/fetch/address";
+import { findAddresses } from "@/fetch/address";
 import { findCity } from "@/fetch/city";
 
 export default function UserPage() {
@@ -13,9 +13,10 @@ export default function UserPage() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       const userData = await findUser();
-      const addressData = await findAddress(1);
+      const addressesData = await findAddresses();
+      const firstAddress = addressesData.sort((a, b) => a.id - b.id)[0];
       setUser(userData);
-      setAddress(addressData);
+      setAddress(firstAddress);
     };
 
     fetchUserProfile();
@@ -37,14 +38,6 @@ export default function UserPage() {
 
     fetchCity();
   }, [address.city_id]);
-
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-
-  if (!address) {
-    return <div>Address not found</div>;
-  }
 
   return (
     <div>

@@ -53,7 +53,7 @@ export default function LoginForm() {
         </div>
 
         <div className="flex flex-col md:flex-row items-center mb-5 relative">
-          <label className="items-center w-2/5 mr-4">Password</label>
+          <label className="items-center w-full md:w-40 mr-4">Password</label>
           <input
             className="md:w-2/3 border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm"
             name="Password"

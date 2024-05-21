@@ -52,8 +52,9 @@ export default function UserForm() {
 
   return (
     <div>
-      <div className="flex flex-col items-center">
-        <form onSubmit={handleRegister}>
+      <div className="flex flex-col w-full items-center">
+        <form className= "w-2/3"
+        onSubmit={handleRegister}>
           <div className="flex flex-col md:flex-row items-center mb-5">
             <label className="items-center w-full md:w-40 mr-4">
               Full Name
@@ -84,9 +85,9 @@ export default function UserForm() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center mb-5 relative">
-            <label className="items-center w-2/5 mr-4">Password</label>
+            <label className="items-center w-full md:w-40 mr-4">Password</label>
             <input
-              className={`md:w-2/3 border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm ${
+              className={`w-full md:w-2/3 border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm ${
                 !passwordMatch ? "border-red-500" : ""
               }`}
               name="Password"
@@ -101,7 +102,7 @@ export default function UserForm() {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-6 h-6 absolute right-5"
+              className="w-6 h-6 absolute right-10"
               onClick={handleShowPasssword}
             >
               <path
@@ -118,9 +119,9 @@ export default function UserForm() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center mb-5 relative">
-          <label className="items-center w-2/5 mr-4">Confirm Password</label>
+          <label className="items-center w-full md:w-40 mr-4">Confirm Password</label>
           <input
-            className={`md:w-2/3 border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm ${
+            className={`w-full md:w-2/3 border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm ${
               !passwordMatch ? "border-red-500" : ""
             }`}
             name="Password"
@@ -135,7 +136,7 @@ export default function UserForm() {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 absolute right-5"
+            className="w-6 h-6 absolute right-10"
             onClick={handleShowPasssword}
           >
             <path

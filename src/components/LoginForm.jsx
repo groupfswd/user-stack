@@ -91,7 +91,6 @@ export default function LoginForm() {
         >
           Login
         </button>
-
         {error && (
           <div className="toast toast-top toast-center">
             <div className="text-white alert alert-error mb-5 justify-center">

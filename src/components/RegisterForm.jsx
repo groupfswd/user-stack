@@ -32,9 +32,7 @@ export default function UserForm() {
       setTimeout(() => {
         router.push("/login");
       }, 1000);
-    } else {
-      response.error && response.error.status === 409;
-      setErrors(true);
+    } else {setErrors(true);
       setTimeout(() => {
         setErrors(false);
       }, 3000);

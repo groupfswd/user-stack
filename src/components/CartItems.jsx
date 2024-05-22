@@ -1,5 +1,12 @@
+import { deleteCartItem } from "@/fetch/cart";
+
 export default function CartItem(params) {
   const cart_item = params.item;
+
+  async function handleDelete() {
+    deleteCartItem(cart_item.id);
+    window.location.reload();
+  }
 
   return (
     <div>
@@ -17,7 +24,9 @@ export default function CartItem(params) {
           <p>Quantity : {cart_item.quantity}</p>
           <p>Sub Total : {cart_item.price * cart_item.quantity}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-error">delete</button>
+            <button className="btn btn-error" onClick={handleDelete}>
+              delete
+            </button>
           </div>
         </div>
       </div>

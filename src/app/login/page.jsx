@@ -16,7 +16,7 @@ export default function LoginPage() {
           similique totam quo esse sapiente fuga?
         </div>
         <Link href="/register">
-          <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button className="w-full bg-[#3797db] hover:bg-[#3187c5] text-white font-bold py-2 px-4 rounded">
             Register here!
           </button>
         </Link>

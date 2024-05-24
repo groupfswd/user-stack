@@ -17,8 +17,10 @@ export default function RegisterPage() {
 
   return (
     <div className="mt-10 p-10 border w-full md:w-1/2 mx-auto">
-      <div className="text-center mb-10 font-black text-5xl">Create an Account</div>
-        <RegisterForm />
+      <div className="text-center mb-10 font-black text-5xl">
+        Create an Account
+      </div>
+      <RegisterForm />
       <div className="mt-3 text-center">
         Already have an account?{" "}
         <Link href="/login">

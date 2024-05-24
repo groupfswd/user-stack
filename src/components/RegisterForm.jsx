@@ -32,7 +32,8 @@ export default function UserForm() {
       setTimeout(() => {
         router.push("/login");
       }, 1000);
-    } else {setErrors(true);
+    } else {
+      setErrors(true);
       setTimeout(() => {
         setErrors(false);
       }, 3000);
@@ -51,8 +52,7 @@ export default function UserForm() {
   return (
     <div>
       <div className="flex flex-col w-full items-center">
-        <form className= "w-2/3"
-        onSubmit={handleRegister}>
+        <form className="w-2/3" onSubmit={handleRegister}>
           <div className="flex flex-col md:flex-row items-center mb-5">
             <label className="items-center w-full md:w-40 mr-4">
               Full Name
@@ -117,38 +117,40 @@ export default function UserForm() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center mb-5 relative">
-          <label className="items-center w-full md:w-40 mr-4">Confirm Password</label>
-          <input
-            className={`w-full md:w-2/3 border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm ${
-              !passwordMatch ? "border-red-500" : ""
-            }`}
-            name="Password"
-            placeholder="Confirm Your Password"
-            type={showPassword ? "text" : "password"}
-            value={confirm_password}
-            onChange={(e) => handlePasswordChange(e, setConfirmPassword)}
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6 absolute right-10"
-            onClick={handleShowPasssword}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+            <label className="items-center w-full md:w-40 mr-4">
+              Confirm Password
+            </label>
+            <input
+              className={`w-full md:w-2/3 border-gray-300 focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-md shadow-sm ${
+                !passwordMatch ? "border-red-500" : ""
+              }`}
+              name="Password"
+              placeholder="Confirm Your Password"
+              type={showPassword ? "text" : "password"}
+              value={confirm_password}
+              onChange={(e) => handlePasswordChange(e, setConfirmPassword)}
             />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-            />
-          </svg>
-        </div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 absolute right-10"
+              onClick={handleShowPasssword}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+              />
+            </svg>
+          </div>
 
           <div className="flex flex-col md:flex-row items-center mb-5">
             <label className="items-center w-full md:w-40 mr-4">

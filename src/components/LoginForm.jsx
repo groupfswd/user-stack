@@ -22,7 +22,9 @@ export default function LoginForm() {
         Cookies.set("isLoggedIn", "true");
         Cookies.set("accessToken", token);
         setSuccess(true);
-        setTimeout(() => {router.push("/");}, 1000);
+        setTimeout(() => {
+          router.push("/");
+        }, 1000);
       }
     } catch (error) {
       setError(true);

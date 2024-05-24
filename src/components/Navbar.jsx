@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Search from "./search";
 import Person from "./person";
-import Cart from "@/app/cart/page";
 
 export default function Navbar() {
   return (
@@ -17,7 +16,7 @@ export default function Navbar() {
       <div className=" my-5 mx-10 gap-5 md:flex hidden">
         <Link
           className="text-2xl font-semibold hover:border-b-4 hover:text-blue-500"
-          href="/home"
+          href="/"
         >
           Home
         </Link>
@@ -29,14 +28,14 @@ export default function Navbar() {
         </Link>
         <Link
           className="text-2xl font-semibold hover:border-b-4 hover:text-gray-100 hover:bg-blue-600 hover:rounded-lg"
-          href="/dashboard"
+          href="/product"
         >
-          Dashboard
+          Product
         </Link>
       </div>
-      <Cart />
-
-      <Person />
+      <div className="flex mr-3">
+        <Person />
+      </div>
     </div>
   );
 }

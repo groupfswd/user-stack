@@ -33,7 +33,7 @@ const ProductPage = ({ params }) => {
   }
 
   return (
-    <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-105">
+    <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-80">
       <Link href={`/product/${product.id}`}>
         <img
           src={product.image}
@@ -49,6 +49,18 @@ const ProductPage = ({ params }) => {
         <p className="text-lg text-gray-900 font-semibold">
           {convertToRupiah(product.price)}
         </p>
+        <div className="flex justify-between">
+          <Link href="/cart">
+            <button className="hover:bg-blue-600 text-white bg-[#3797DB] rounded-full px-2 py-2 transform transition duration-300 ease-in-out hover:scale-105 hover:cursor-pointer">
+              Add to Cart
+            </button>
+          </Link>
+          <p>
+            <button className="mt-3 transform transition duration-300 ease-in-out hover:scale-105 hover:cursor-pointer">
+              Add to Wishlist
+            </button>
+          </p>
+        </div>
       </Link>
     </div>
   );

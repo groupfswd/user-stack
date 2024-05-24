@@ -18,7 +18,9 @@ export default function Footer() {
               <FaInstagram className="text-2xl cursor-pointer hover:text-yellow-600" />
               <FaTwitter className="text-2xl cursor-pointer hover:text-yellow-600" />
               <FaLinkedin className="text-2xl cursor-pointer hover:text-yellow-600" />
-              <FaGithub className="text-2xl cursor-pointer hover:text-yellow-600" />
+              <Link href="https://github.com/groupfswd">
+                <FaGithub className="text-2xl cursor-pointer hover:text-yellow-600" />
+              </Link>
             </div>
           </ul>
         </div>

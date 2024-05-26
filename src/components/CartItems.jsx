@@ -33,10 +33,7 @@ export default function CartItem(props) {
     <div>
       <div className="card card-side bg-base-100 shadow-xl">
         <figure>
-          <img
-            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"
-            alt="Movie"
-          />
+          <img src="/placeholder300x400.png" alt="Movie" />
         </figure>
         <div className="card-body">
           <div className="flex justify-between">

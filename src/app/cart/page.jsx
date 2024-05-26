@@ -82,10 +82,9 @@ export default function CartPage() {
   }
 
   return (
-    <>
-      {}
-      <div className="container mx-auto">
-        <h1>SHOPPING CART</h1>
+    <div className="my-10">
+      <div className="container mx-auto font-bold mb-10">
+        <h1 className="text-2xl">SHOPPING CART</h1>
       </div>
       <div className="container mx-auto flex justify-between gap-4 flex-wrap">
         <div className="cart-container flex flex-col gap-4 flex-grow">
@@ -112,6 +111,6 @@ export default function CartPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

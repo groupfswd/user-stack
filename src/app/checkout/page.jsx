@@ -6,6 +6,7 @@ import { findAddresses } from "@/fetch/address";
 import { convertToRupiah } from "@/lib/convertRupiah";
 import { createOrderApi } from "@/fetch/order";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CheckoutPage() {
   const [cart, setCart] = useState(null);
@@ -38,6 +39,10 @@ export default function CheckoutPage() {
       const response = await getCart();
       setCart(response);
       setCartItem(response.cart_items);
+
+      if (response.cart_items.length === 0) {
+        router.push("/cart");
+      }
     }
 
     fetchCart();
@@ -222,7 +227,9 @@ export default function CheckoutPage() {
           <div className="flex flex-col gap-4 p-4 border border-solid">
             <div className="flex justify-between">
               <h2 className="text-xl font-bold">ORDER SUMMARY</h2>
-              <h2 className="text-xl font-bold">EDIT</h2>
+              <Link className="text-xl font-bold" href={"/cart"}>
+                EDIT
+              </Link>
             </div>
             <div className="text-md">
               <p>TOTAL ITEM(S): {totalQuantity}</p>

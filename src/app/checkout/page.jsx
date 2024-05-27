@@ -118,7 +118,6 @@ export default function CheckoutPage() {
         price: item.price,
       })),
     };
-    console.log(params);
     if (
       selectedAddress == null ||
       selectedCourier == null ||
@@ -127,20 +126,24 @@ export default function CheckoutPage() {
       alert("Please select delivery options");
     } else {
       const response = await createOrderApi(params);
+      console.log(response);
 
-      await resetCart();
-
-      router.push(`/order/${response.data.id}`);
+      if (response.data == null) {
+        alert("Something went wrong, please try again");
+      } else {
+        await resetCart();
+        router.push(`/order/${response.data.id}`);
+      }
     }
   }
 
   return (
     <div className="container mx-auto my-10">
       <h1 className="text-2xl font-bold mb-4">CHECKOUT</h1>
-      <div className="flex gap-20 flex-wrap">
-        <div className="flex flex-col flex-grow gap-4 p-4 border border-solid min-w-[420px]">
+      <div className="flex flex-wrap gap-20">
+        <div className="flex flex-col flex-grow flex-wrap gap-4 p-4 border border-solid">
           <h2 className="text-xl font-bold">DELIVERY OPTION</h2>
-          <div className="flex flex-grow justify-between gap-4">
+          <div className="flex flex-grow flex-wrap justify-between gap-4">
             {/* address */}
             <div className="flex flex-col flex-grow gap-4">
               <div>
@@ -223,7 +226,7 @@ export default function CheckoutPage() {
             </button>
           </div>
         </div>
-        <div className="flex flex-col max-w-[420px] gap-4">
+        <div className="flex flex-col flex-grow lg:max-w-[420px] gap-4">
           <div className="flex flex-col gap-4 p-4 border border-solid">
             <div className="flex justify-between">
               <h2 className="text-xl font-bold">ORDER SUMMARY</h2>

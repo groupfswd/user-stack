@@ -1,5 +1,7 @@
 import { deleteCartItem, updateCart } from "@/fetch/cart";
 import { useRouter } from "next/navigation";
+import { convertToRupiah } from "@/lib/convertRupiah";
+import Link from "next/link";
 
 export default function CartItem(props) {
   const cart_item = props.item;
@@ -31,9 +33,11 @@ export default function CartItem(props) {
 
   return (
     <div>
-      <div className="card card-side bg-base-100 shadow-xl">
+      <div className="card card-side bg-base-100 rounded-none flex flex-wrap">
         <figure>
-          <img src="/placeholder300x400.png" alt="Movie" />
+          <Link href={`/product/${cart_item.product.id}`}>
+            <img className="w-60 " src="/placeholder300x400.png" alt="Movie" />
+          </Link>
         </figure>
         <div className="card-body">
           <div className="flex justify-between">
@@ -46,8 +50,8 @@ export default function CartItem(props) {
             </div>
           </div>
           <p>SKU : {cart_item.product.sku}</p>
-          <p>Price : {cart_item.product.price}</p>
-          <div className="flex justify-between">
+          <p>Price : {convertToRupiah(cart_item.product.price)}</p>
+          <div className="flex justify-between flex-wrap gap-2">
             <select
               className="select select-bordered w-full max-w-xs"
               defaultValue={cart_item.quantity}
@@ -65,7 +69,10 @@ export default function CartItem(props) {
               <option value="10">10</option>
             </select>
 
-            <div>Sub Total : {cart_item.price * cart_item.quantity}</div>
+            <div className="text-xl">
+              Sub Total :{" "}
+              {convertToRupiah(cart_item.price * cart_item.quantity)}
+            </div>
           </div>
         </div>
       </div>

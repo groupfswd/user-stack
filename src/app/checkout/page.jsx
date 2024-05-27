@@ -7,6 +7,7 @@ import { convertToRupiah } from "@/lib/convertRupiah";
 import { createOrderApi } from "@/fetch/order";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import "./checkout.css";
 
 export default function CheckoutPage() {
   const [cart, setCart] = useState(null);
@@ -140,8 +141,8 @@ export default function CheckoutPage() {
   return (
     <div className="container mx-auto my-10">
       <h1 className="text-2xl font-bold mb-4">CHECKOUT</h1>
-      <div className="flex flex-wrap gap-20">
-        <div className="flex flex-col flex-grow flex-wrap gap-4 p-4 border border-solid">
+      <div className="main-container flex flex-wrap gap-20">
+        <div className="delivery-option flex flex-col flex-grow flex-wrap gap-4 p-4 border border-solid">
           <h2 className="text-xl font-bold">DELIVERY OPTION</h2>
           <div className="flex flex-grow flex-wrap justify-between gap-4">
             {/* address */}
@@ -226,7 +227,7 @@ export default function CheckoutPage() {
             </button>
           </div>
         </div>
-        <div className="flex flex-col flex-grow lg:max-w-[420px] gap-4">
+        <div className="order-summary flex flex-col flex-grow lg:max-w-[420px] gap-4">
           <div className="flex flex-col gap-4 p-4 border border-solid">
             <div className="flex justify-between">
               <h2 className="text-xl font-bold">ORDER SUMMARY</h2>

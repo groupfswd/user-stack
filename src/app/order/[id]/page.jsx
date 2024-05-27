@@ -86,14 +86,14 @@ export default function OrderPage({ params }) {
     e.preventDefault;
   }
   return (
-    <div className="container bordermx-auto my-5">
-      <Link className="mb-5" href="/order">
-        &#60; BACK
+    <div className="container bordermx-auto my-5 text-gray-600">
+      <Link className="mb-5 btn btn-sm btn-primary-content" href="/order">
+        BACK
       </Link>
       <div className="flex flex-col gap-4 border p-2">
         <div className="flex justify-between">
-          <div className="text-gray-600">
-            <h1 className="text-2xl font-bold text-black">ORDER DETAIL</h1>
+          <div className="">
+            <h1 className="text-2xl font-bold">ORDER DETAIL</h1>
           </div>
           <div>
             <p>Order ID: {orderData?.id}</p>
@@ -159,7 +159,7 @@ export default function OrderPage({ params }) {
           )}
           {orderData?.status === "shipping" && (
             <div className="flex flex-col gap-4">
-              <p className="text-xl text-gray-600">
+              <p className="text-xl ">
                 Your product is now shipping and should arrive soon. We
                 appreciate your patience and hope you enjoy your purchase!
               </p>
@@ -180,7 +180,7 @@ export default function OrderPage({ params }) {
 
           {orderData?.status === "delivered" && (
             <div className="flex flex-col gap-4">
-              <p className="text-xl text-gray-600">
+              <p className="text-xl ">
                 Your product has been delivered. please review the product
               </p>
             </div>
@@ -194,7 +194,7 @@ export default function OrderPage({ params }) {
             <h1 className="text-2xl font bold">Delivery Address</h1>
             <h1 className="">Delivery Service: {orderData?.shipping_method}</h1>
           </div>
-          <div className="text-gray-600">
+          <div className="">
             <p>Nama: {orderData?.user.fullname}</p>
             <p>Email: {orderData?.user.email}</p>
             <p>Phone: {orderData?.user.phone_number}</p>
@@ -203,7 +203,7 @@ export default function OrderPage({ params }) {
           <div>
             <h1 className="text-lg">Send to address: {address?.title}</h1>
             {address && (
-              <p className="text-gray-600">
+              <p className="">
                 {address?.street_address}, {address?.city.name} City,
                 {address?.province} Province,
                 {address?.postal_code}
@@ -257,8 +257,8 @@ export default function OrderPage({ params }) {
             <div>
               <div className="flex justify-between flex-wrap">
                 {/* store */}
-                <div className="flex flex-col gap-2 text-gray-600">
-                  <h1 className="text-2xl mb-5 text-black">Store Address</h1>
+                <div className="flex flex-col gap-2 ">
+                  <h1 className="text-2xl mb-5">Store Address</h1>
                   <p>Store Name: {orderData?.store.name}</p>
                   <p>Bank Name: {orderData?.store.bank_name}</p>
                   <p>Bank Account Number: {orderData?.store.bank_account}</p>
@@ -276,7 +276,7 @@ export default function OrderPage({ params }) {
                   <div>
                     <h1 className="text-2xl">Order Summary</h1>
                   </div>
-                  <table className="table text-lg text-gray-600">
+                  <table className="table text-lg ">
                     <tbody className="text-right">
                       <tr>
                         <td>Total quantity:</td>

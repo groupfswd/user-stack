@@ -9,10 +9,12 @@ import Link from "next/link";
 export default function OrderPage() {
   const [orderData, setOrderData] = useState(null);
   const [orderItems, setOrderItems] = useState(null);
+
   const [sortDisabled, setSortDisabled] = useState(false);
   const [filterDisabled, setFilterDisabled] = useState(false);
   const [totalPagesArray, setTotalPagesArray] = useState([]);
   const [activeButton, setActiveButton] = useState(null);
+
   const router = useRouter();
   const Pathname = usePathname();
   const searchParams = useSearchParams();
@@ -91,6 +93,7 @@ export default function OrderPage() {
         <h1 className="text-3xl font-bold">ORDER</h1>
         <div className=" flex gap-2">
           <select className="select select-bordered" onChange={handleSort}>
+
             <option value={0} disabled={sortDisabled}>
               Sort By:
             </option>
@@ -99,6 +102,7 @@ export default function OrderPage() {
             <option value={"updated_at asc"}>Updated At Asc</option>
             <option value={"updated_at desc"}>Updated At Desc</option>
           </select>
+
           <select className="select select-bordered" onChange={handleFilter}>
             <option value={0} disabled={filterDisabled}>
               Order By Status:
@@ -112,6 +116,7 @@ export default function OrderPage() {
             <option value={"delivered"}>Delivered</option>
             <option value={"completed"}>Completed</option>
           </select>
+
         </div>
       </div>
       {/* full order */}
@@ -165,6 +170,7 @@ export default function OrderPage() {
           </div>
         </div>
       ))}
+
       <div className="join my-5 justify-end" onClick={handlePage}>
         {orderData &&
           totalPagesArray.map((item) => (

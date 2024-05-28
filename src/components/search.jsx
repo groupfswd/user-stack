@@ -13,7 +13,7 @@ function Search() {
   return (
     <div className="mt-7 md:flex gap-2 hidden">
       <input
-        className="h-8 w-80 rounded-md"
+        className="h-8 text-black w-80 rounded-md"
         type="text"
         placeholder="Search..."
         value={searchQuery}

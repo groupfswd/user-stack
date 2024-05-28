@@ -9,7 +9,10 @@ import Link from "next/link";
 export default function OrderPage() {
   const [orderData, setOrderData] = useState(null);
   const [orderItems, setOrderItems] = useState(null);
-
+  const [sortDisabled, setSortDisabled] = useState(false);
+  const [filterDisabled, setFilterDisabled] = useState(false);
+  const [totalPagesArray, setTotalPagesArray] = useState([]);
+  const [activeButton, setActiveButton] = useState(null);
   const router = useRouter();
   const Pathname = usePathname();
   const searchParams = useSearchParams();
@@ -28,19 +31,58 @@ export default function OrderPage() {
     async function fetchOrder() {
       const response = await getAllOrderApi();
       setOrderData(response);
-      setOrderItems(response.data);
     }
     fetchOrder();
   }, []);
 
+  useEffect(() => {
+    if (orderData) {
+      setOrderItems(orderData.data);
+    }
+  }, [orderData]);
+
+  useEffect(() => {
+    setTotalPagesArray([]);
+    let x = [];
+    if (orderItems) {
+      for (let i = 1; i <= orderData.totalPages; i++) {
+        x.push(i);
+      }
+      setTotalPagesArray(x);
+    }
+    console.log(activeButton);
+  }, [orderItems]);
+
   const handleSort = async (event) => {
+    setSortDisabled(true);
     const sortBy = event.target.value;
     const params = createQueryString("sort_by", sortBy);
     const updateUrl = `${Pathname}?${params}`;
-    router.push(updateUrl, undefined, { replace: true });
+    router.push(updateUrl);
     const response = await getAllOrderApi(params);
-    console.log(response);
-    setOrderItems(response.data);
+    setOrderData(response);
+    router.refresh();
+  };
+
+  const handleFilter = async (event) => {
+    setFilterDisabled(true);
+    const filterBy = event.target.value;
+    const params = createQueryString("filter_status", filterBy);
+    const updateUrl = `${Pathname}?${params}`;
+    router.push(updateUrl);
+    const response = await getAllOrderApi(params);
+    setOrderData(response);
+    router.refresh();
+  };
+
+  const handlePage = async (event) => {
+    const page = event.target.value;
+    setActiveButton(event.target.value);
+    const params = createQueryString("page", page);
+    const updateUrl = `${Pathname}?${params}`;
+    router.push(updateUrl);
+    const response = await getAllOrderApi(params);
+    setOrderData(response);
     router.refresh();
   };
   return (
@@ -49,14 +91,19 @@ export default function OrderPage() {
         <h1 className="text-3xl font-bold">ORDER</h1>
         <div className=" flex gap-2">
           <select className="select select-bordered" onChange={handleSort}>
-            <option value={0}>Sort By:</option>
+            <option value={0} disabled={sortDisabled}>
+              Sort By:
+            </option>
             <option value={"created_at asc"}>Created At Asc</option>
             <option value={"created_at desc"}>Created At Desc</option>
             <option value={"updated_at asc"}>Updated At Asc</option>
             <option value={"updated_at desc"}>Updated At Desc</option>
           </select>
-          <select className="select select-bordered">
-            <option value={0}>Order By Status:</option>
+          <select className="select select-bordered" onChange={handleFilter}>
+            <option value={0} disabled={filterDisabled}>
+              Order By Status:
+            </option>
+            <option value={""}>All</option>
             <option value={"cancelled"}>Cancelled</option>
             <option value={"waiting_payment"}>Waiting Payment</option>
             <option value={"waiting_approval"}>Waiting Approval</option>
@@ -65,11 +112,6 @@ export default function OrderPage() {
             <option value={"delivered"}>Delivered</option>
             <option value={"completed"}>Completed</option>
           </select>
-          <input
-            type="text"
-            placeholder="Find your order id here"
-            className="input input-bordered w-full max-w-xs"
-          />
         </div>
       </div>
       {/* full order */}
@@ -123,11 +165,20 @@ export default function OrderPage() {
           </div>
         </div>
       ))}
-      <div className="join my-5 justify-end">
-        <button className="join-item btn btn-sm">1</button>
-        <button className="join-item btn btn-sm btn-active">2</button>
-        <button className="join-item btn btn-sm">3</button>
-        <button className="join-item btn btn-sm">4</button>
+      <div className="join my-5 justify-end" onClick={handlePage}>
+        {orderData &&
+          totalPagesArray.map((item) => (
+            <button
+              value={item}
+              key={item}
+              // className={"join-item btn btn-sm"}
+              className={`join-item btn btn-sm ${
+                activeButton === item ? "btn-active" : ""
+              }`}
+            >
+              {item}
+            </button>
+          ))}
       </div>
     </div>
   );

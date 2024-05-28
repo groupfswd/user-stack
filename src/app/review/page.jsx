@@ -1,7 +1,9 @@
+import Review from "@/components/Review";
+
 export default function ReviewPage() {
   return (
     <div>
-      <h1>Review Page</h1>
+      <Review />
     </div>
   );
 }

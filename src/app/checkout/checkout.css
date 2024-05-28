@@ -1,0 +1,13 @@
+@media (max-width: 773px) {
+  .delivery-option {
+    order: 2; /* Swap the order of the elements */
+  }
+
+  .order-summary {
+    order: 1; /* Swap the order of the elements */
+  }
+
+  .main-container {
+    gap: 1rem;
+  }
+}

@@ -1,13 +1,28 @@
 "use client";
 
 import { getAllOrderApi } from "@/fetch/order";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { convertToRupiah } from "@/lib/convertRupiah";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import Link from "next/link";
 export default function OrderPage() {
   const [orderData, setOrderData] = useState(null);
   const [orderItems, setOrderItems] = useState(null);
+
+  const router = useRouter();
+  const Pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const createQueryString = useCallback(
+    (name, value) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+      return params.toString();
+    },
+
+    [searchParams]
+  );
 
   useEffect(() => {
     async function fetchOrder() {
@@ -18,17 +33,22 @@ export default function OrderPage() {
     fetchOrder();
   }, []);
 
-  useEffect(() => {
-    if (orderData) {
-      console.log(orderData);
-    }
-  }, [orderData]);
+  const handleSort = async (event) => {
+    const sortBy = event.target.value;
+    const params = createQueryString("sort_by", sortBy);
+    const updateUrl = `${Pathname}?${params}`;
+    router.push(updateUrl, undefined, { replace: true });
+    const response = await getAllOrderApi(params);
+    console.log(response);
+    setOrderItems(response.data);
+    router.refresh();
+  };
   return (
     <div className="container mx-auto mt-10 flex flex-col text-gray-600">
       <div className="flex justify-between items-end mb-5">
         <h1 className="text-3xl font-bold">ORDER</h1>
         <div className=" flex gap-2">
-          <select className="select select-bordered">
+          <select className="select select-bordered" onChange={handleSort}>
             <option value={0}>Sort By:</option>
             <option value={"created_at asc"}>Created At Asc</option>
             <option value={"created_at desc"}>Created At Desc</option>

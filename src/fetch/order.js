@@ -28,8 +28,11 @@ export const getDetailOrderApi = async (id) => {
   return data;
 };
 
-export const getAllOrderApi = async () => {
-  const response = await fetch(`${BASE_URL}/orders`, {
+export const getAllOrderApi = async (params) => {
+  if (!params) {
+    params = "";
+  }
+  const response = await fetch(`${BASE_URL}/orders?${params}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,

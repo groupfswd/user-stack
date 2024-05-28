@@ -9,7 +9,7 @@ export default function LoginPage() {
       <LoginForm />
       <div className="flex-1 flex flex-col pl-10 md:border-l md:mt-0 mt-10">
         <div className="mb-5 font-black text-5xl">Create an account</div>
-        <div className="mb-5">
+        <div className="mb-10">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto,
           doloribus porro provident cupiditate ullam ipsum alias, ratione fugiat
           dolorem deserunt repudiandae necessitatibus minus, reprehenderit

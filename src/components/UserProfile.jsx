@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { findUser } from "@/fetch/user";
 import { findAddresses } from "@/fetch/address";
 import { findCity } from "@/fetch/city";
-import { getAllOrderApi } from "@/fetch/order";
+import { getAllOrderApi, updateOrderApi } from "@/fetch/order";
+import { convertToRupiah } from "@/lib/convertRupiah";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -47,6 +48,17 @@ export default function UserPage() {
 
     fetchOrders();
   }, []);
+
+  const handleCompleteOrder = async (e) => {
+    e.preventDefault();
+    const orderId = orders.data[0].id;
+    const data = {
+      status: "delivered",
+    };
+    await updateOrderApi(orderId, data);
+    const orderData = await getAllOrderApi({ sort_by: "created_at desc" });
+    setOrders(orderData);
+  };
 
   function statusStyle(status) {
     switch (status) {
@@ -164,12 +176,15 @@ export default function UserPage() {
                         )}
                         )
                       </p>
-                      <p>{order.total_price + order.shipping_cost}</p>
+                      <p>{convertToRupiah(order.total_price + order.shipping_cost)}</p>
                       <p>
                         {order.courier}, {order.shipping_method}
                       </p>
                       <p className="text-sm">
-                      <Link href="/order/[id]" as={`/order/${order.id}`}> (click here for order detail) </Link>
+                        <Link href="/order/[id]" as={`/order/${order.id}`}>
+                          {" "}
+                          (click here for order detail){" "}
+                        </Link>
                       </p>
                     </div>
                     <p
@@ -178,6 +193,11 @@ export default function UserPage() {
                     >
                       {status.text}
                     </p>
+                    {order.status === "shipping" && (
+                      <button onClick={handleCompleteOrder} className="btn btn-success text-white absolute right-3 top-10">
+                        Complete Order
+                      </button>
+                    )}
                   </div>
                 );
               })}

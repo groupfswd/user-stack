@@ -12,3 +12,17 @@ export const getReviews = async () => {
   const data = await response.json();
   return data;
 };
+
+export const createReview = async (params) => {
+  const response = await fetch(`${BASE_URL}/reviews`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(params),
+  });
+
+  const data = await response.json();
+  return data;
+};

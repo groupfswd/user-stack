@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { findAddress } from "@/fetch/address";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { updateOrderItemsApi } from "@/fetch/orderItems";
+import { createReview } from "@/fetch/review";
 
 export default function OrderPage({ params }) {
   const id = params.id;
@@ -18,6 +20,10 @@ export default function OrderPage({ params }) {
   const [address, setAddress] = useState(null);
   const [image, setImage] = useState(null);
   const [finalDate, setFinalDate] = useState(null);
+  const [review, setReview] = useState(null);
+  const [rating, setRating] = useState(null);
+  const [productChoosed, setProductChoosed] = useState(null);
+  const [disableRating, setDisableRating] = useState(false);
 
   const router = useRouter();
 
@@ -84,7 +90,29 @@ export default function OrderPage({ params }) {
 
   async function handleReview(e) {
     e.preventDefault;
+    const params = {
+      product_id: +productChoosed.split(" ")[0],
+      comments: review,
+      rating: rating,
+    };
+    const id = +productChoosed.split(" ")[1];
+    console.log(id, "id");
+    try {
+      const response = await createReview(params);
+      console.log(response);
+      const update = await updateOrderItemsApi({ id });
+      console.log(update);
+    } catch (err) {
+      console.log(err);
+    }
   }
+
+  useEffect(() => {
+    if (productChoosed) {
+      console.log(productChoosed, "<<<<<<");
+    }
+  }, [productChoosed]);
+
   return (
     <div className="container bordermx-auto my-5 text-gray-600">
       <Link className="mb-5 btn btn-sm btn-primary-content" href="/order">
@@ -215,7 +243,7 @@ export default function OrderPage({ params }) {
         <div>
           <h1 className="text-2xl">Products</h1>
           <div className="flex gap-4 text-grey-600 flex-col">
-            {orderData?.order_items.map((item) => (
+            {orderData?.order_items.map((item, index) => (
               <div key={item.id}>
                 <div
                   className="card card-side rounded-none border p-2 items-center"
@@ -225,31 +253,73 @@ export default function OrderPage({ params }) {
                     <img src="/placeholderimage.png" alt="placeholder" />
                   </figure>
                   <div className="card-body">
-                    <p>{item.product.name}</p>
+                    <p className="card-title">
+                      Product {index + 1}: {item.product.name}
+                    </p>
                     <p>{convertToRupiah(item.price)}</p>
                     <p>quantity: {item.quantity}</p>
                   </div>
-                  {orderData?.status === "delivered" && (
-                    <div className="card-actions min-w-[400px]">
-                      <form
-                        onSubmit={handleReview}
-                        className="flex flex-col gap-4 w-full"
-                      >
-                        <textarea
-                          className="textarea textarea-bordered"
-                          placeholder="Leave a review"
-                        ></textarea>
-
-                        <button className="btn btn-warning" type="submit">
-                          Review
-                        </button>
-                      </form>
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
           </div>
+
+          {/* review */}
+          {orderData?.status === "delivered" && (
+            <div className="card-actions my-5">
+              <h1 className="text-2xl mb-5">Review</h1>
+              <div className="flex flex-col gap-4 w-full">
+                <div className="flex justify-between gap-2 flex-wrap">
+                  <div className="flex items-center flex-grow gap-2">
+                    <p>Choose Product: </p>{" "}
+                    <select
+                      className="select select-bordered w-full"
+                      onChange={(e) => setProductChoosed(e.target.value)}
+                    >
+                      {orderData?.order_items.map((item, index) => (
+                        <option
+                          key={item.id}
+                          value={item.product_id + " " + item.id}
+                        >
+                          Product {index + 1}:{item.product.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="flex items-center flex-grow gap-2">
+                    <p>Rating: </p>
+
+                    <select
+                      className="select select-bordered w-full"
+                      onChange={(e) => setRating(Number(e.target.value))}
+                    >
+                      <option value={0} disabled={disableRating}>
+                        Select Rating
+                      </option>
+                      <option value={5}>5 - Excelent</option>
+                      <option value={4}>4 - Very good</option>
+                      <option value={3}>3 - Good</option>
+                      <option value={2}>2 - Fair</option>
+                      <option value={1}>1 - Poor</option>
+                    </select>
+                  </div>
+                </div>
+                <textarea
+                  className="textarea textarea-bordered"
+                  placeholder="Leave a review"
+                  onChange={(e) => setReview(e.target.value)}
+                ></textarea>
+
+                <button
+                  className="btn btn-warning"
+                  type="submit"
+                  onClick={handleReview}
+                >
+                  Leave a review
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div>
@@ -315,11 +385,11 @@ export default function OrderPage({ params }) {
             </div>
           )}
         </div>
-        <hr />
 
         {/* payment */}
         {orderData?.status === "waiting_payment" && (
           <div>
+            <hr className="mb-5" />
             <div className="mb-5">
               <form
                 onSubmit={handleSubmitPayment}

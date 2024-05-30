@@ -28,33 +28,31 @@ export default function Footer() {
           <ul>
             <p className="text-gray-800 font-bold text-2xl pb-4">Product</p>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Stoks
+              <Link href="/">Stoks</Link>
             </li>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Feature & Options
+              <Link href="/wishlist">Wishlist</Link>
             </li>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Care Product
+              <Link href="/category3">Care Product</Link>
             </li>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Suplies
+              <Link href="/product">Suplies</Link>
             </li>
           </ul>
         </div>
         <div className="p-5">
           <ul>
             <p className="text-gray-800 font-bold text-2xl pb-4">Feature</p>
+
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              New Arival
-            </li>
-            <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Discount
+              <Link href="/order">Discount</Link>
             </li>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
               <Link href="/product">Products</Link>
             </li>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Pricing
+              <Link href="/cart">Pricing</Link>
             </li>
           </ul>
         </div>
@@ -65,16 +63,19 @@ export default function Footer() {
               Contact
             </li>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              List of Products
+              <Link
+                href="/product/1
+              "
+              >
+                List of Products
+              </Link>
             </li>
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Suports
+              <Link href="/"> Suports</Link>
             </li>
+
             <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Resource
-            </li>
-            <li className="text-gray-500 text-md pb-2 font-semibold hover:text-blue-600 cursor-pointer">
-              Pictures
+              <Link href="/">Pictures</Link>
             </li>
           </ul>
         </div>

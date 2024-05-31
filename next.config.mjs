@@ -5,6 +5,7 @@ const nextConfig = {
       "images.unsplash.com",
       "media.istockphoto.com",
       "plus.unsplash.com",
+      "images.remotePatterns",
     ],
   },
   reactStrictMode: true,

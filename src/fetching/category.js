@@ -1,4 +1,4 @@
-import accessToken from "@/lib/jwtToken";
+import accessToken from "@/lib/token";
 
 const { default: BASE_URL } = require("@/lib/baseUrl");
 

@@ -1,5 +1,6 @@
 import BASE_URL from "@/lib/baseUrl";
-import accessToken from "@/lib/jwtToken";
+
+import accessToken from "@/lib/token";
 
 export const getCart = async () => {
   const response = await fetch(`${BASE_URL}/carts`, {

@@ -23,7 +23,7 @@ const Person = () => {
                 </Link>
                 <Link
                   href="/register"
-                  className="block px-4 py-2 text-sm hover:bg-gray-100"
+                  className="block px-4 py-2 text-sm hover:bg-gray-100 relative"
                 >
                   Sign Up
                 </Link>

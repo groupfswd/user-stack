@@ -7,7 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Hero = () => {
   return (
-    <div className="flex justify-center items-center py-10">
+    <div className="flex justify-center items-center py-10 ">
       <div className="lg:w-3/5 ">
         <Carousel autoPlay interval={3000} infiniteLoop showThumbs={false}>
           <div>

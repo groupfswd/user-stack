@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getDetailProduct } from "@/fetching/product";
 import { convertToRupiah } from "@/lib/convertRupiah";
+import Review from "@/components/Review";
 
 const ProductPage = ({ params }) => {
   const [product, setProduct] = useState(null);
@@ -13,7 +14,6 @@ const ProductPage = ({ params }) => {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        console.log(id, "<<<< ini id");
         const data = await getDetailProduct(id);
         setProduct(data);
       } catch (err) {
@@ -62,6 +62,7 @@ const ProductPage = ({ params }) => {
           </p>
         </div>
       </Link>
+      <Review id={id} />
     </div>
   );
 };

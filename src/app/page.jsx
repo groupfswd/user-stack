@@ -4,6 +4,7 @@ import Head from "next/head";
 import Hero from "@/components/hero";
 import ProductsPage from "./product/page";
 import Categories from "@/components/Categories";
+import Hero2 from "@/components/hero2";
 
 export default function Home() {
   return (
@@ -16,8 +17,7 @@ export default function Home() {
           <span className="text-blue-700">mudah</span>
         </h1>
         <Categories />
-      </div>
-      <div>
+        <Hero2 />
         <ProductsPage />
       </div>
     </>

@@ -119,56 +119,60 @@ export default function OrderPage() {
         </div>
       </div>
       {/* full order */}
-      {orderItems?.map((item) => (
-        <div
-          key={item.id}
-          className="card card-side rounded-none p-2 border flex"
-        >
-          <div className="flex flex-col flex-grow">
-            <h2>Order id: {item.id}</h2>
+      <div className="flex flex-col gap-4">
+        {orderItems?.map((item) => (
+          <div key={item.id} className="card flex rounded-none p-2 border">
+            {/* text */}
+
+            <div className="flex gap-4 items-center">
+              <h2 className="text-xl font-bold">ID: {item.id}</h2>
+
+              {item.status === "completed" ? (
+                <p className="text-white p-1 bg-success">
+                  {" "}
+                  {item.status.split("_").join(" ")}
+                </p>
+              ) : (
+                <p className="bg-warning text-white p-1">
+                  {" "}
+                  {item.status.split("_").join(" ")}
+                </p>
+              )}
+              <p className="text-sm">
+                Created At: {new Date(item.created_at).toDateString()}
+              </p>
+              <p className="text-sm">
+                Updated At: {new Date(item.updated_at).toDateString()}
+              </p>
+            </div>
 
             {/* order items */}
-            {item.order_items.map((item) => (
-              <div key={item.id} className="card card-side rounded-none">
-                <figure>
-                  <img src="/placeholderimage.png" alt="" className="w-20" />
-                </figure>
-                <div className="card-body">
-                  <h2 className="card-title text-gray-600">
-                    {item.product.name} x {item.quantity}
-                  </h2>
+            <div className="flex gap-4 mt-5">
+              {item.order_items.map((item) => (
+                <div key={item.id} className="card rounded-none">
+                  <figure>
+                    <img src="/placeholderimage.png" alt="" className="w-20" />
+                  </figure>
+
+                  <h2 className=" text-gray-600">{item.product.name}</h2>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="flex flex-col gap-4 items-end justify-between">
-            <Link
-              className="btn btn-sm btn-primary-content"
-              href={`/order/${item.id}`}
-            >
-              Details
-            </Link>
-            <p className="text-sm">
-              Created At: {new Date(item.created_at).toDateString()}
-            </p>
-            <p className="text-sm">
-              Updated At: {new Date(item.updated_at).toDateString()}
-            </p>
-            {item.status !== "delivered" ? (
-              <p className="text-warning">
-                Status: {item.status.split("_").join(" ")}
+            <div className="flex justify-between mt-5">
+              <p className="text-2xl font-bold">
+                Total: {convertToRupiah(item.total_price + item.shipping_cost)}
               </p>
-            ) : (
-              <p className="text-success">Status: Delivered</p>
-            )}
-
-            <p className="text-2xl font-bold">
-              Total: {convertToRupiah(item.total_price)}
-            </p>
+              <Link
+                className="btn btn-sm btn-primary-content"
+                href={`/order/${item.id}`}
+              >
+                See order detail
+              </Link>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       <div className="join my-5 justify-end" onClick={handlePage}>
         {orderData &&

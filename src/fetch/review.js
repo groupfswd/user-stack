@@ -26,3 +26,30 @@ export const createReview = async (params) => {
   const data = await response.json();
   return data;
 };
+
+export const getReviewByItemId = async (id) => {
+  const response = await fetch(`${BASE_URL}/reviews?item_id=${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  const data = await response.json();
+  return data;
+};
+
+export const updateReview = async (params) => {
+  const response = await fetch(`${BASE_URL}/reviews/${params.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify(params.data),
+  });
+
+  const data = await response.json();
+  return data;
+};

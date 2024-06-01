@@ -32,18 +32,18 @@ export default function Navbar() {
   return (
     <div className="navbar bg-[#3797db]">
       <div className="flex-1">
-        <Link
+        <a
           href="/"
           className="btn btn-ghost hover:bg-[#3187c5] text-white text-xl"
         >
           Baby Wonders
-        </Link>
-        <Link
+        </a>
+        <a
           href="/product"
           className="btn btn-ghost hover:bg-[#3187c5] text-white text-xl"
         >
           Products
-        </Link>
+        </a>
       </div>
 
       <div className="flex-none gap-5">
@@ -107,3 +107,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
+  )
+}

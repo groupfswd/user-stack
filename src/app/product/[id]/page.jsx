@@ -40,7 +40,7 @@ const ProductPage = ({ params }) => {
           alt={product.name}
           width={100}
           height={90}
-          className="w-full h-auto object-cover rounded-t-lg"
+          className="w-[300px] h-auto object-cover rounded-t-lg"
         />
         <h2 className="mt-4 font-semibold text-2xl text-gray-900 py-4">
           {product.name}

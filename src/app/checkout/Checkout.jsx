@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { getCart, getShippingCost, resetCart } from "@/fetch/cart";
-import { findAddresses } from "@/fetch/address";
+import { findAddresses, createAddress } from "@/fetch/address";
 import { convertToRupiah } from "@/lib/convertRupiah";
 import { createOrderApi } from "@/fetch/order";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import "./checkout.css";
+import { findCities } from "@/fetch/city";
 
 export default function CheckoutPage() {
   const [cart, setCart] = useState(null);
@@ -23,6 +24,14 @@ export default function CheckoutPage() {
   const [selectedService, setSelectedService] = useState(null);
   const [disableServiceSelection, setDisableServiceSelection] = useState(true);
   const [subTotalPrice, setSubTotalPrice] = useState(0);
+  const [city, setCity] = useState(null);
+
+  const [title, setTitle] = useState(null);
+  const [streetAddress, setStreetAddress] = useState(null);
+  const [province, setProvince] = useState(null);
+  const [postalCode, setPostalCode] = useState(null);
+  const [cityId, setCityId] = useState(null);
+  const [disableCityButton, setDisableCityButton] = useState(false);
 
   const router = useRouter();
 
@@ -33,6 +42,15 @@ export default function CheckoutPage() {
       setTotalQuantity(cartItem?.reduce((acc, item) => acc + item.quantity, 0));
     }
   }, [cartItem]);
+
+  useEffect(() => {
+    async function fetchCity() {
+      const response = await findCities();
+      setCity(response);
+    }
+
+    fetchCity();
+  }, []);
 
   //   cart
   useEffect(() => {
@@ -80,7 +98,6 @@ export default function CheckoutPage() {
 
       const response = await getShippingCost(params);
       setGetShippingCostData(response);
-      console.log(response);
       setDisableServiceSelection(false);
     }
 
@@ -139,23 +156,57 @@ export default function CheckoutPage() {
     }
   }
 
-  useEffect(() => {
-    if (address) {
-      console.log(address);
+  async function handleSaveAddress() {
+    const param = {
+      title: title,
+      street_address: streetAddress,
+      province: province,
+      postal_code: +postalCode,
+      city_id: +cityId,
+    };
+    const response = await createAddress(param);
+    if (response.data == null) {
+      alert("Something went wrong, please try again");
+    } else {
+      setTitle(null);
+      setStreetAddress(null);
+      setProvince(null);
+      setPostalCode(null);
+      setCityId(null);
+      setDisableCityButton(false);
+      document.getElementById("my_modal_1").close();
+      window.location.reload();
     }
-  }, [address]);
+  }
+
+  function handleCityId(e) {
+    const id = e.target.value;
+    setCityId(id);
+    setDisableCityButton(true);
+  }
 
   return (
     <div className="container mx-auto my-10 text-gray-600">
-      <h1 className="text-3xl font-bold mb-4">CHECKOUT</h1>
+      <h1 className="text-3xl font-bold mb-4">Checkout</h1>
       <div className="flex gap-4">
         {/* delivery option */}
         <div className="w-8/12">
           <div className="flex flex-col justify-between w-full justify-items-end border gap-4 p-4">
             <div className="delivery-option flex flex-col w-full flex-wrap gap-4">
-              <h2 className="text-xl font-bold">DELIVERY OPTION</h2>
+              <div className="flex justify-between">
+                <h2 className="text-xl font-bold">Delivery Option</h2>
+                <p
+                  className="text-sm underline font-bold hover:cursor-pointer"
+                  onClick={() =>
+                    document.getElementById("my_modal_1").showModal()
+                  }
+                >
+                  Create new address
+                </p>
+              </div>
               <div className="flex flex-col flex-grow gap-4">
                 {/* address */}
+
                 <div>
                   <select
                     className="select select-bordered w-full"
@@ -226,9 +277,74 @@ export default function CheckoutPage() {
             </div>
           </div>
 
+          {/* modal */}
+          <dialog id="my_modal_1" className="modal">
+            <div className="modal-box">
+              <div className="flex flex-col gap-2">
+                <label>Whas should we call this address:</label>
+                <input
+                  type="text"
+                  placeholder="Home or office or etc."
+                  className="input input-bordered w-full"
+                  required
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <label>Street address:</label>
+                <input
+                  type="text"
+                  placeholder="Street Address"
+                  className="input input-bordered w-full"
+                  required
+                  onChange={(e) => setStreetAddress(e.target.value)}
+                />
+                <label>province:</label>
+                <input
+                  type="text"
+                  placeholder="Province"
+                  className="input input-bordered w-full"
+                  required
+                  onChange={(e) => setProvince(e.target.value)}
+                />
+                <label>city:</label>
+                <select
+                  className="select select-bordered w-full"
+                  required
+                  onChange={handleCityId}
+                >
+                  <option value={0} disabled={disableCityButton}>
+                    city
+                  </option>
+                  {city?.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+                <label>Postal code:</label>
+                <input
+                  type="text"
+                  placeholder="Postal code"
+                  required
+                  className="input input-bordered w-full"
+                  onChange={(e) => setPostalCode(e.target.value)}
+                />
+
+                <button className="btn mt-2" onClick={handleSaveAddress}>
+                  Save
+                </button>
+              </div>
+
+              <div className="modal-action">
+                <form method="dialog">
+                  <button className="btn">Close</button>
+                </form>
+              </div>
+            </div>
+          </dialog>
+
           {/* order items */}
           <div className="flex flex-col gap-4 p-4flex-wrap border w-full p-4">
-            <h2 className="text-xl font-bold">ORDER ITEM&#40;S&#41;</h2>
+            <h2 className="text-xl font-bold">Order Item&#40;s&#41;</h2>
             <div className="flex gap-2 flex-wrap">
               {cartItem?.map((item) => (
                 <div key={item.id}>
@@ -243,7 +359,7 @@ export default function CheckoutPage() {
         <div className="flex flex-grow flex-col">
           <div className="flex flex-col gap-4 border p-4">
             <div className="flex justify-between">
-              <h2 className="text-xl font-bold">ORDER SUMMARY</h2>
+              <h2 className="text-xl font-bold">Order Summary</h2>
               <Link className="text-xl font-bold" href={"/cart"}>
                 EDIT
               </Link>

@@ -9,8 +9,7 @@ export const getAllReviews = async (id) => {
   });
   const data = await res.json();
   return data;
-}
-
+};
 
 export const getOneReview = async (id) => {
   const res = await fetch(`${BASE_URL}/reviews/${id}`, {
@@ -35,18 +34,18 @@ export const createReview = async (body) => {
   return data;
 };
 
-export const updateReview = async (id, body) => {
-  const res = await fetch(`${BASE_URL}/reviews/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(body),
-  });
-  const data = await res.json();
-  return data;
-};
+// export const updateReview = async (id, body) => {
+//   const res = await fetch(`${BASE_URL}/reviews/${id}`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${accessToken}`,
+//     },
+//     body: JSON.stringify(body),
+//   });
+//   const data = await res.json();
+//   return data;
+// };
 
 export const deleteReview = async (id) => {
   const res = await fetch(`${BASE_URL}/reviews/${id}`, {
@@ -56,20 +55,6 @@ export const deleteReview = async (id) => {
     },
   });
   const data = await res.json();
-  return data;
-};
-
-export const createReview = async (params) => {
-  const response = await fetch(`${BASE_URL}/reviews`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify(params),
-  });
-
-  const data = await response.json();
   return data;
 };
 

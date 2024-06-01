@@ -73,7 +73,7 @@ export default function CartPage() {
       <div>
         <div className="container flex flex-col mx-auto items-center my-52">
           <h1>Your cart is empty</h1>
-          <Link href={"/products"} className="btn btn-info">
+          <Link href={"/product"} className="btn btn-info">
             Continue Shopping
           </Link>
         </div>
@@ -82,9 +82,9 @@ export default function CartPage() {
   }
 
   return (
-    <div className="my-10 text-gray-600 container mx-auto ">
+    <div className="my-10 text-gray-600 container mx-auto tracking-wide">
       <div className="font-bold mb-5">
-        <h1 className="text-3xl font-bold">SHOPPING CART</h1>
+        <h1 className="text-3xl font-bold">Shopping Cart</h1>
       </div>
       <div className="flex justify-between gap-4 flex-wrap">
         <div className="cart-container flex flex-col gap-4 flex-grow">
@@ -97,7 +97,7 @@ export default function CartPage() {
 
         <div className="summary-container flex flex-col gap-4 flex-grow lg:max-w-[400px]">
           <div className="border border-solid px-4 py-2">
-            <h1 className="text-2xl font-bold">ORDER SUMMARY</h1>
+            <h1 className="text-2xl font-bold">Order Summary</h1>
             <div className="flex justify-between">
               <p>Total item(s)</p>
               <p>{totalQuantity}</p>
@@ -122,7 +122,7 @@ export default function CartPage() {
                 CHECKOUT
               </button>
               <Link
-                href={"/products"}
+                href={"/product"}
                 className="btn btn-primary-content text-xl border-solid-2 font-bold"
               >
                 CONTINUE SHOPPING

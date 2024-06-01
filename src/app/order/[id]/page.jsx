@@ -179,14 +179,14 @@ export default function OrderPage({ params }) {
   }
 
   return (
-    <div className="container mx-auto my-5 text-gray-600">
+    <div className="xl:w-1/2 lg:w-9/12 md:w-11/12 sm:w-11/12 mx-auto my-5 tracking-wide">
       <Link className="mb-5 btn btn-sm btn-primary-content" href="/order">
         BACK
       </Link>
       <div className="flex flex-col gap-4 border p-2">
         <div className="flex justify-between">
           <div className="">
-            <h1 className="text-2xl font-bold">ORDER DETAIL</h1>
+            <h1 className="text-2xl font-bold">Order Detail</h1>
           </div>
           <div>
             <p>Order ID: {orderData?.id}</p>
@@ -198,7 +198,7 @@ export default function OrderPage({ params }) {
 
         <div className="flex flex-col text-center">
           {orderData && (
-            <ul className="steps w-full pb-10">
+            <ul className="steps w-full mb-5">
               <li className="step step-info">Order Created</li>
               <li className="step step-info">Payment</li>
               <li className={`step ${step > 0 ? "step-info" : ""}`}>
@@ -353,7 +353,7 @@ export default function OrderPage({ params }) {
       </div>
       <div className="flex flex-col gap-4 border p-2">
         <div>
-          <h1 className="text-2xl font-bold mt-5 mb-5">PRODUCTS</h1>
+          <h1 className="text-2xl font-bold mt-5 mb-5">Products</h1>
           <div className="flex gap-4 text-grey-600 flex-col">
             {orderData?.order_items.map((item, index) => (
               <div key={item.id}>
@@ -362,19 +362,19 @@ export default function OrderPage({ params }) {
                   onClick={router.forward(`/product/${item.product.id}`)}
                 >
                   <figure>
-                    <img src="/placeholderimage.png" alt="placeholder" />
+                    <img src={item.product.image} alt="placeholder" />
                   </figure>
                   <div className="card-body">
                     <p className="card-title">
                       Product {index + 1}: {item.product.name}
                     </p>
                     <p>{convertToRupiah(item.price)}</p>
-                    <p>quantity: {item.quantity}</p>
+                    <p>Quantity: {item.quantity}</p>
                   </div>
                   {orderData?.status === "delivered" &&
                     item.is_reviewed === false && (
                       <button
-                        className="btn btn-warning"
+                        className="btn btn-sm btn-warning"
                         onClick={() =>
                           document.getElementById(item.id).showModal()
                         }
@@ -386,7 +386,7 @@ export default function OrderPage({ params }) {
                     (orderData?.status === "completed" &&
                       item.is_reviewed === true && (
                         <button
-                          className="btn btn-warning"
+                          className="btn btn-sm btn-warning"
                           onClick={() => handleSeeReview(item.id)}
                         >
                           See Review
@@ -486,7 +486,7 @@ export default function OrderPage({ params }) {
               {/* order */}
               <div className="flex flex-col flex-grow">
                 <div className="mt-5">
-                  <h1 className="text-2xl font-bold">ORDER SUMMARY</h1>
+                  <h1 className="text-2xl font-bold">Order Summary</h1>
                 </div>
                 <table className="table text-lg border-solid">
                   <tbody className="text-left">
@@ -511,7 +511,7 @@ export default function OrderPage({ params }) {
                       <td>{convertToRupiah(orderData?.shipping_cost)}</td>
                     </tr>
                     <tr>
-                      <td className="font-bold text-2xl">Total Price</td>
+                      <td className="font-bold">Total Price</td>
                       <td className="text-right">:</td>
                       <td className="text-2xl text-error font-bold">
                         {convertToRupiah(

@@ -34,7 +34,7 @@ const ProductPage = ({ params }) => {
 
   return (
     <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-80">
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/product/${product.slug}`}>
         <img
           src={product.image}
           alt={product.name}

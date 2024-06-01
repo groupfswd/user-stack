@@ -62,7 +62,7 @@ const ProductPage = ({ params }) => {
           </p>
         </div>
       </Link>
-      <Review id={id} />
+      <Review product_id={product.id} />
     </div>
   );
 };

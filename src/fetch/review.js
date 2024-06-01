@@ -1,8 +1,8 @@
 import BASE_URL from "@/lib/baseUrl";
 import accessToken from "@/lib/token";
 
-export const getAllReviews = async (id) => {
-  const res = await fetch(`${BASE_URL}/reviews?id=${id}`, {
+export const getAllReviews = async () => {
+  const res = await fetch(`${BASE_URL}/reviews`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

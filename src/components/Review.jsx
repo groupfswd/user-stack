@@ -4,19 +4,20 @@ import { useState, useEffect } from "react";
 import { getAllReviews } from "@/fetch/review";
 import { FaStar } from "react-icons/fa6";
 
-export default function Review(params) {
+export default function Review({ product_id }) {
   const [reviews, setReviews] = useState([]);
-  const { id } = params;
-  
+
   useEffect(() => {
     const fetchReviews = async () => {
-      const data = await getAllReviews(id);
-      setReviews(data);
-      console.log(data ,"<<<<<<<fetchReviews");
+      const data = await getAllReviews();
+      const filteredData = data.filter(
+        (review) => review.product_id === product_id
+      );
+      setReviews(filteredData);
     };
 
     fetchReviews();
-  }, []);
+  }, [product_id]);
 
   return (
     <div className="container mx-auto my-10 text-gray-600">

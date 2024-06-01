@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { getDetailProduct } from "@/fetching/product";
+import { getDetailProduct } from "@/fetch/product";
 import { convertToRupiah } from "@/lib/convertRupiah";
 import Review from "@/components/Review";
 

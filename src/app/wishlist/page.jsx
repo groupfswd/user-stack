@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getWishlist, deleteWishlist } from "@/fetching/wishlist";
+import { getWishlist, deleteWishlist } from "@/fetch/wishlist";
 import { convertToRupiah } from "@/lib/convertRupiah";
 import { BsTrash, BsCart4 } from "react-icons/bs";
 import Link from "next/link";

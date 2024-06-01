@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { getProducts } from "@/fetching/product";
+import { getProducts } from "@/fetch/product";
 import { convertToRupiah } from "@/lib/convertRupiah";
-import { createWishlist } from "@/fetching/wishlist";
+import { createWishlist } from "@/fetch/wishlist";
 
 const ProductsPageCategory2 = () => {
   const [products, setProducts] = useState([]);

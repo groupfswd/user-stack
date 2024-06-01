@@ -10,15 +10,14 @@ export default function Home() {
   return (
     <>
       <Hero />
-
       <div className="text-center mt-20">
+        <ProductsPage />
         <h1 className="md:text-8xl text-4xl font-bold text-center text-gray-900">
           <span className="text-blue-700"> Beli</span> peralatan bayi dengan{" "}
           <span className="text-blue-700">mudah</span>
         </h1>
-        <Categories />
         <Hero2 />
-        <ProductsPage />
+        {/* <Categories /> */}
       </div>
     </>
   );

@@ -45,11 +45,11 @@ const ProductsPage = () => {
     <>
       <div className="container mx-auto">
         <div className="grid grid-cols-3 mt-3">
-            <Search className="col-span-2"/>
-            <div className="grid col-span-2 grid-cols-2 ml-auto gap-2">
-                <SearchMinPrice />
-                <SearchMaxPrice />
-            </div>
+          <Search className="col-span-2" />
+          <div className="grid col-span-2 grid-cols-2 ml-auto gap-2">
+            <SearchMinPrice />
+            <SearchMaxPrice />
+          </div>
         </div>
       </div>
       <div
@@ -61,7 +61,7 @@ const ProductsPage = () => {
             key={product.id}
             className="flex flex-col items-center p-4 m-auto bg-white rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-105"
           >
-            <Link href={`/product/${product.id}`}>
+            <Link href={`/product/${product.slug}`}>
               <img
                 src={product.image}
                 alt={product.name}

@@ -1,7 +1,7 @@
 const { default: BASE_URL } = require("@/lib/baseUrl");
 
-export const getProducts = async () => {
-  const response = await fetch(`${BASE_URL}/products`, {
+export const getProducts = async (newUrl) => {
+  const response = await fetch(`${BASE_URL}/products${newUrl}`, {
     method: "GET",
   });
   const data = await response.json();

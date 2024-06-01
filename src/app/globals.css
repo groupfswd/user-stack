@@ -74,7 +74,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-.btn {
-  @apply rounded-none;
-}

@@ -51,7 +51,6 @@ export default function OrderPage() {
       }
       setTotalPagesArray(x);
     }
-    console.log(activeButton);
   }, [orderItems]);
 
   const handleSort = async (event) => {
@@ -88,10 +87,17 @@ export default function OrderPage() {
     setOrderData(response);
     router.refresh();
   };
+
+  useEffect(() => {
+    if (orderData) {
+      console.log(orderData);
+    }
+  }, [orderItems]);
+
   return (
-    <div className="container mx-auto mt-10 flex flex-col text-gray-600 ">
-      <div className="flex justify-between items-end mb-5">
-        <h1 className="text-3xl font-bold">ORDER</h1>
+    <div className="xl:w-1/2 lg:w-9/12 md:w-11/12 sm:w-11/12 mx-auto mt-10 flex flex-col tracking-wide">
+      <div className="flex justify-between items-end mb-5 p-2">
+        <h1 className="text-3xl font-bold">Order</h1>
         <div className=" flex gap-2">
           <select className="select select-bordered" onChange={handleSort}>
             <option value={0} disabled={sortDisabled}>
@@ -121,55 +127,112 @@ export default function OrderPage() {
       {/* full order */}
       <div className="flex flex-col gap-4">
         {orderItems?.map((item) => (
-          <div key={item.id} className="card flex rounded-none p-2 border">
+          <div key={item.id} className="card flex rounded-none p-2 border-b">
             {/* text */}
 
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-4 items-center justify-between mb-2">
               <h2 className="text-xl font-bold">ID: {item.id}</h2>
-
-              {item.status === "completed" ? (
-                <p className="text-white p-1 bg-success">
-                  {" "}
-                  {item.status.split("_").join(" ")}
-                </p>
-              ) : (
-                <p className="bg-warning text-white p-1">
-                  {" "}
-                  {item.status.split("_").join(" ")}
-                </p>
-              )}
-              <p className="text-sm">
-                Created At: {new Date(item.created_at).toDateString()}
-              </p>
-              <p className="text-sm">
-                Updated At: {new Date(item.updated_at).toDateString()}
-              </p>
-            </div>
-
-            {/* order items */}
-            <div className="flex gap-4 mt-5">
-              {item.order_items.map((item) => (
-                <div key={item.id} className="card rounded-none">
-                  <figure>
-                    <img src="/placeholderimage.png" alt="" className="w-20" />
-                  </figure>
-
-                  <h2 className=" text-gray-600">{item.product.name}</h2>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-between mt-5">
-              <p className="text-2xl font-bold">
-                Total: {convertToRupiah(item.total_price + item.shipping_cost)}
-              </p>
-              <Link
-                className="btn btn-sm btn-primary-content"
-                href={`/order/${item.id}`}
-              >
+              <Link className="underline font-bold" href={`/order/${item.id}`}>
                 See order detail
               </Link>
             </div>
+
+            <div className="flex gap-10 items-center">
+              <div className="flex flex-col gap-4 mt-5">
+                <img
+                  src={item.order_items[0].product.image}
+                  alt="Product Image"
+                />
+                {item.order_items.length > 1 && (
+                  <p className="text-sm text-gray-600">
+                    + {item.order_items.length - 1} More
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="text-xl">
+                  Total Price:{" "}
+                  {convertToRupiah(item.total_price + item.shipping_cost)}
+                </p>
+                <p className="text-sm">
+                  Created At:{" "}
+                  {new Date(item.created_at).toLocaleDateString("en-US", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                  {"  "}(
+                  {new Date(item.created_at).toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                  )
+                </p>
+                <p className="text-sm">
+                  Updated At:{" "}
+                  {new Date(item.updated_at).toLocaleDateString("en-US", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                  {"  "}(
+                  {new Date(item.updated_at).toLocaleTimeString("en-US", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                  )
+                </p>
+
+                {item.status === "completed" && (
+                  <p className="text-white p-1 bg-[limegreen] text-center">
+                    {" "}
+                    {item.status.split("_").join(" ")}
+                  </p>
+                )}
+                {item.status === "delivered" && (
+                  <p className="text-white p-1 bg-[limegreen] text-center">
+                    {" "}
+                    {item.status.split("_").join(" ")}
+                  </p>
+                )}
+
+                {item.status === "cancelled" && (
+                  <p className="bg-red text-white p-1 text-center">
+                    {" "}
+                    {item.status.split("_").join(" ")}
+                  </p>
+                )}
+
+                {item.status === "waiting_payment" && (
+                  <p className="bg-[gold] text-white p-1 text-center">
+                    {item.status.split("_").join(" ")}
+                  </p>
+                )}
+                {item.status === "waiting_approval" && (
+                  <p className="bg-[gold] text-white p-1 text-center">
+                    {item.status.split("_").join(" ")}
+                  </p>
+                )}
+
+                {item.status === "approved" ||
+                  (item.status === "shipping" && (
+                    <p className="bg-[lightseagreen] text-white p-1 text-center">
+                      {item.status.split("_").join(" ")}
+                    </p>
+                  ))}
+
+                {item.status === "approved" && (
+                  <p className="bg-[lightseagreen] text-white p-1 text-center">
+                    {item.status.split("_").join(" ")}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex justify-end mt-5"></div>
           </div>
         ))}
       </div>

@@ -23,6 +23,7 @@ export default function AddressesList() {
   const [postalCode, setPostalCode] = useState("");
   const [cityId, setCityId] = useState("");
   const [index, setIndex] = useState("");
+  const [errorNotFound, setErrorNotFound] = useState(false);
   const [errorAdd, setErrorAdd] = useState(false);
   const [errorEdit, setErrorEdit] = useState(false);
   const [errorDelete, setErrorDelete] = useState(false);
@@ -58,7 +59,7 @@ export default function AddressesList() {
       });
       setSuccessEdit(true);
       setTimeout(() => setSuccessEdit(false), 3000);
-      router.refresh();
+      setTimeout(() => window.location.reload(), 1000);
     } catch (err) {
       setErrorEdit(true);
       setTimeout(() => setErrorEdit(false), 3000);
@@ -70,7 +71,7 @@ export default function AddressesList() {
       await deleteAddress(addressId);
       setSuccessDelete(true);
       setTimeout(() => setSuccessDelete(false), 3000);
-      router.refresh();
+      setTimeout(() => window.location.reload(), 1000);
     } catch (err) {
       setErrorDelete(true);
       setTimeout(() => setErrorDelete(false), 3000);
@@ -89,7 +90,7 @@ export default function AddressesList() {
       });
       setSuccessAdd(true);
       setTimeout(() => setSuccessAdd(false), 3000);
-      router.refresh();
+      setTimeout(() => window.location.reload(), 1000);
     } catch (error) {
       setErrorAdd(true);
       setTimeout(() => setErrorAdd(false), 3000);
@@ -108,7 +109,13 @@ export default function AddressesList() {
   useEffect(() => {
     const fetchAddresses = async () => {
       const addressesData = await findAddresses();
-      setAddresses(addressesData);
+
+      if (addressesData.length === 0) {
+        setErrorNotFound(true);
+        setTimeout(() => setErrorNotFound(false), 3000);
+      } else {
+        setAddresses(addressesData);
+      }
     };
 
     fetchAddresses();
@@ -137,6 +144,13 @@ export default function AddressesList() {
 
   return (
     <div>
+      {errorNotFound && (
+        <div className="toast toast-top toast-center">
+          <div className="alert alert-error text-white">
+            Please Add New Address!
+          </div>
+        </div>
+      )}
       <div>
         <div className="flex justify-center pt-10">
           <button

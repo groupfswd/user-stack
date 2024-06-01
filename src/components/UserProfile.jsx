@@ -4,10 +4,12 @@ import { findAddresses } from "@/fetch/address";
 import { findCity } from "@/fetch/city";
 import { getAllOrderApi, updateOrderApi } from "@/fetch/order";
 import { convertToRupiah } from "@/lib/convertRupiah";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function UserPage() {
+  const router = useRouter();
   const [user, setUser] = useState("");
   const [address, setAddress] = useState("");
   const [cityName, setCityName] = useState("");
@@ -19,7 +21,11 @@ export default function UserPage() {
       const addressesData = await findAddresses();
       const firstAddress = addressesData.sort((a, b) => a.id - b.id)[0];
       setUser(userData);
-      setAddress(firstAddress);
+      if (!firstAddress) {
+        router.push("/user/addresses");
+      } else {
+        setAddress(firstAddress);
+      }
     };
 
     fetchUserProfile();
@@ -176,7 +182,11 @@ export default function UserPage() {
                         )}
                         )
                       </p>
-                      <p>{convertToRupiah(order.total_price + order.shipping_cost)}</p>
+                      <p>
+                        {convertToRupiah(
+                          order.total_price + order.shipping_cost
+                        )}
+                      </p>
                       <p>
                         {order.courier}, {order.shipping_method}
                       </p>
@@ -194,7 +204,10 @@ export default function UserPage() {
                       {status.text}
                     </p>
                     {order.status === "shipping" && (
-                      <button onClick={handleCompleteOrder} className="btn btn-success text-white absolute right-3 top-10">
+                      <button
+                        onClick={handleCompleteOrder}
+                        className="btn btn-success text-white absolute right-3 top-10"
+                      >
                         Complete Order
                       </button>
                     )}

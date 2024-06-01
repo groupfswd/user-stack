@@ -8,8 +8,8 @@ import { convertToRupiah } from "@/lib/convertRupiah";
 
 import { createWishlist } from "@/fetch/wishlist";
 import Search from "@/components/Search";
-import SearchMinPrice from "@/components/SearchMinPrice";
-import SearchMaxPrice from "@/components/SearchMaxPrice";
+import SearchPrice from "@/components/SearchPrice";
+import { updateCart } from "@/fetch/cart";
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
@@ -19,7 +19,19 @@ const ProductsPage = () => {
   const params = new URLSearchParams(searchParams.toString());
 
   async function handleWishlist(id) {
-    const res = await createWishlist({ product_id: +id });
+    await createWishlist({ product_id: +id });
+  }
+
+  async function handleCart(id, price) {
+    await updateCart({
+      cart_items_attributes: [
+        {
+          product_id: id,
+          quantity: 1,
+          price: price
+        }
+      ]
+    });
   }
 
   useEffect(() => {
@@ -44,11 +56,10 @@ const ProductsPage = () => {
   return (
     <>
       <div className="container mx-auto">
-        <div className="grid grid-cols-3 mt-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 mt-3">
           <Search className="col-span-2" />
-          <div className="grid col-span-2 grid-cols-2 ml-auto gap-2">
-            <SearchMinPrice />
-            <SearchMaxPrice />
+          <div className="grid col-span-1 grid-cols-1 gap-1">
+            <SearchPrice />
           </div>
         </div>
       </div>
@@ -80,7 +91,7 @@ const ProductsPage = () => {
             </Link>
             <div className="sm:flex lg:flex ">
               <div className="flex sm:gap-2 sm:px-6 sm:py-3 sm:mr-9">
-                <button className="bg-blue-500  hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded transition-colors duration-300 ease-in-out flex items-center justify-center w-full truncate">
+                <button onClick={(e) => handleCart(product.id, product.price)} className="bg-blue-500  hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded transition-colors duration-300 ease-in-out flex items-center justify-center w-full truncate">
                   <Link href="/cart" aria-label="Add to Cart">
                     Add to Cart
                   </Link>
@@ -109,9 +120,8 @@ const ProductsPage = () => {
             <button
               key={index}
               onClick={() => paginate(index + 1)}
-              className={`mx-1 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none ${
-                currentPage === index + 1 ? "bg-blue-700" : ""
-              }`}
+              className={`mx-1 px-4 py-2 bg-blue-500 text-white rounded-md focus:outline-none ${currentPage === index + 1 ? "bg-blue-700" : ""
+                }`}
             >
               {index + 1}
             </button>

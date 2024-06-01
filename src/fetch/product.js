@@ -2,7 +2,7 @@ import accessToken from "@/lib/token";
 const { default: BASE_URL } = require("@/lib/baseUrl");
 
 export const getProducts = async (newUrl) => {
-  const response = await fetch(`${BASE_URL}/products`, {
+  const response = await fetch(`${BASE_URL}/products${newUrl}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,

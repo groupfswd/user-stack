@@ -33,10 +33,10 @@ export default function CartItem(props) {
 
   return (
     <div>
-      <div className="card card-side bg-base-100 rounded-none flex flex-wrap">
+      <div className="card card-side bg-base-100 rounded-none flex flex-wrap p-2">
         <figure>
           <Link href={`/product/${cart_item.product.id}`}>
-            <img className="w-60 " src="/placeholder300x400.png" alt="Movie" />
+            <img className="w-40 " src="/placeholder300x400.png" alt="Movie" />
           </Link>
         </figure>
         <div className="card-body">
@@ -49,9 +49,12 @@ export default function CartItem(props) {
               X
             </div>
           </div>
-          <p>SKU : {cart_item.product.sku}</p>
-          <p>Price : {convertToRupiah(cart_item.product.price)}</p>
-          <div className="flex justify-between flex-wrap gap-2">
+          <div>
+            <p>SKU : {cart_item.product.sku}</p>
+            <p>Weight: {cart_item.product.weight} g</p>
+            <p>Price : {convertToRupiah(cart_item.product.price)}</p>
+          </div>
+          <div className="flex justify-between flex-wrap gap-2 items-center">
             <select
               className="select select-bordered w-full max-w-xs"
               defaultValue={cart_item.quantity}
@@ -70,7 +73,7 @@ export default function CartItem(props) {
             </select>
 
             <div className="text-xl">
-              Sub Total :{" "}
+              <span className="font-bold">Sub total :</span>{" "}
               {convertToRupiah(cart_item.price * cart_item.quantity)}
             </div>
           </div>

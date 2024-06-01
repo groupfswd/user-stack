@@ -12,7 +12,7 @@ export default function WishlistPage() {
     try {
       const response = await deleteWishlist(itemId);
 
-      if (response.ok) {
+      if (response) {
         const updatedWishlist = wishlist.filter((item) => item.id !== itemId);
         setWishlist(updatedWishlist);
         console.log("Item deleted successfully");

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { IoMdCart } from "react-icons/io";
 import { LiaSearchSolid } from "react-icons/lia";
@@ -107,3 +107,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
+  );
+}

@@ -36,7 +36,11 @@ export default function CartItem(props) {
       <div className="card card-side bg-base-100 rounded-none flex flex-wrap p-2">
         <figure>
           <Link href={`/product/${cart_item.product.id}`}>
-            <img className="w-40 " src="/placeholder300x400.png" alt="Movie" />
+            <img
+              className="w-40 justify-center"
+              src={cart_item.product.image}
+              alt="Movie"
+            />
           </Link>
         </figure>
         <div className="card-body">

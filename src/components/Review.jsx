@@ -7,12 +7,12 @@ import { FaStar } from "react-icons/fa6";
 export default function Review(params) {
   const [reviews, setReviews] = useState([]);
   const { id } = params;
-  
+
   useEffect(() => {
     const fetchReviews = async () => {
       const data = await getAllReviews(id);
       setReviews(data);
-      console.log(data ,"<<<<<<<fetchReviews");
+      console.log(data, "<<<<<<<fetchReviews");
     };
 
     fetchReviews();
@@ -24,7 +24,7 @@ export default function Review(params) {
         <h1 className="text-3xl font-bold">Reviews</h1>
       </div>
       <div>
-        {reviews.map((review, index) => (
+        {reviews?.map((review, index) => (
           <div className="border-b pb-5 pt-5" key={index}>
             <div className="rating">
               {[...Array(review.rating)].map((_, index) => (

@@ -142,6 +142,7 @@ export default function OrderPage() {
                 <img
                   src={item.order_items[0].product.image}
                   alt="Product Image"
+                  className="w-24"
                 />
                 {item.order_items.length > 1 && (
                   <p className="text-sm text-gray-600">

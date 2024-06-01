@@ -2,11 +2,13 @@
 
 import Link from "next/link";
 import Cookies from "js-cookie";
+import { useRouter} from "next/navigation";
 import { useState, useEffect } from "react";
 import { IoMdCart } from "react-icons/io";
 import { LiaSearchSolid } from "react-icons/lia";
 
 export default function Navbar() {
+  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [search, setSearch] = useState("");
 
@@ -20,7 +22,7 @@ export default function Navbar() {
     Cookies.remove("accessToken");
     Cookies.remove("isLoggedIn");
     setIsLoggedIn(false);
-    window.location.reload();
+    router.push("/");
   };
 
   const handleSearch = (e) => {

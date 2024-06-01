@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { updateOrderItemsApi } from "@/fetch/orderItems";
 import { createReview, getReviewByItemId, updateReview } from "@/fetch/review";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function OrderPage({ params }) {
   const id = params.id;
@@ -77,19 +78,20 @@ export default function OrderPage({ params }) {
 
   async function handleSubmitPayment(e) {
     if (!image) {
-      return alert("Please upload your image");
+      toast.error("Please upload your image");
+    } else {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("image", image);
+
+      const response = await uploadOrderApi(formData);
+      const updateResponse = await updateOrderApi(id, {
+        status: "waiting_approval",
+        image_url: response.image,
+      });
+
+      window.location.reload();
     }
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-
-    const response = await uploadOrderApi(formData);
-    const updateResponse = await updateOrderApi(id, {
-      status: "waiting_approval",
-      image_url: response.image,
-    });
-
-    window.location.reload();
   }
 
   async function handleDelivered() {
@@ -109,7 +111,7 @@ export default function OrderPage({ params }) {
     };
     const id = itemOrderId;
     if (rating === null || rating === 0) {
-      alert("Please select rating first");
+      toast.error("please select rating first");
     } else {
       try {
         const response = await createReview(params);
@@ -120,7 +122,7 @@ export default function OrderPage({ params }) {
           window.location.reload();
         }
       } catch (err) {
-        alert("Something went wrong, please try again");
+        toast.error("Something went wrong, please try again");
       }
     }
   }
@@ -180,6 +182,7 @@ export default function OrderPage({ params }) {
 
   return (
     <div className="xl:w-1/2 lg:w-9/12 md:w-11/12 sm:w-11/12 mx-auto my-5 tracking-wide">
+      <Toaster position="top-center" reverseOrder={false} />
       <Link className="mb-5 btn btn-sm btn-primary-content" href="/order">
         BACK
       </Link>
@@ -230,9 +233,7 @@ export default function OrderPage({ params }) {
           {orderData?.status === "waiting_payment" && (
             <div>
               <p className="text-xl text-error">
-                The information regarding your payment can be found below. We
-                kindly ask for your attention to ensure everything is processed
-                smoothly.
+                The information regarding your payment can be found below.
               </p>
               <p className="text-xl text-error">
                 Thank you for your cooperation!
@@ -253,7 +254,7 @@ export default function OrderPage({ params }) {
               </p>
               {orderData?.status === "shipping" && (
                 <button
-                  className="btn btn-info w-11/12 text-xl font-bold"
+                  className="btn btn-info w-11/12 text-xl font-bold text-white"
                   onClick={handleDelivered}
                 >
                   DELIVERED
@@ -362,7 +363,11 @@ export default function OrderPage({ params }) {
                   onClick={router.forward(`/product/${item.product.id}`)}
                 >
                   <figure>
-                    <img src={item.product.image} alt="placeholder" />
+                    <img
+                      src={item.product.image}
+                      alt="placeholder"
+                      className="w-24"
+                    />
                   </figure>
                   <div className="card-body">
                     <p className="card-title">
@@ -532,8 +537,6 @@ export default function OrderPage({ params }) {
           )}
         </div>
 
-        {/* payment */}
-        {/* store */}
         {orderData?.status === "waiting_payment" && (
           <div>
             <div className="flex flex-col gap-2 ">
@@ -560,6 +563,7 @@ export default function OrderPage({ params }) {
                     accept="image/*"
                     name="image"
                     onChange={(e) => setImage(e.target.files[0])}
+                    required
                     className="file-input file-input-bordered w-full max-w-xs"
                   />
 

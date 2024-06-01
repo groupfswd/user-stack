@@ -25,7 +25,7 @@ export default function Review({ product_id }) {
         <h1 className="text-3xl font-bold">Reviews</h1>
       </div>
       <div>
-        {reviews.map((review, index) => (
+        {reviews?.map((review, index) => (
           <div className="border-b pb-5 pt-5" key={index}>
             <div className="rating">
               {[...Array(review.rating)].map((_, index) => (

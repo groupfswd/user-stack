@@ -349,7 +349,11 @@ export default function CheckoutPage() {
               {cartItem?.map((item) => (
                 <div key={item.id}>
                   {item.product.name}
-                  <img src="/placeholderimage.png" alt="product image" />
+                  <img
+                    src={item.product.image}
+                    alt="product image"
+                    className="w-40"
+                  />
                   QUANTITY: {item.quantity}
                 </div>
               ))}

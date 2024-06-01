@@ -2,10 +2,9 @@
 
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { IoMdCart } from "react-icons/io";
-import { LiaSearchSolid } from "react-icons/lia";
 
 export default function Navbar() {
   const router = useRouter();
@@ -46,22 +45,9 @@ export default function Navbar() {
         </a>
       </div>
 
-      <div className="flex-none gap-5">
-        <div className="form-control relative">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-24 md:w-auto"
-            value={search}
-            onChange={handleSearch}
-          />
-          <Link href={`/product?search=${search}`}>
-            {" "}
-            <LiaSearchSolid className="text-3xl absolute top-2 right-2" />
-          </Link>
-        </div>
+      <div className="flex-none gap-3">
 
-        <div className="text-2xl text-white">
+        <div className="text-2xl text-white border-transparent hover:bg-[#3187c5] border-8 rounded-full">
           <Link href="/cart">
             <IoMdCart />
           </Link>
@@ -74,10 +60,18 @@ export default function Navbar() {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="white"
+                className="size-10"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </div>
           </div>
           <ul
@@ -107,5 +101,5 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  )
+  );
 }

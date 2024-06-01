@@ -146,6 +146,7 @@ export default function OrderPage({ params }) {
   }, [orderData]);
 
   async function handleSeeReview(itemId) {
+    setReviewData(null);
     const response = await getReviewByItemId(itemId);
     setReviewData(response);
     document.getElementById(itemId).showModal();
@@ -174,12 +175,6 @@ export default function OrderPage({ params }) {
     });
     window.location.reload();
   }
-
-  function handleCloseModal() {
-    document.getElementById(reviewData[0].id).close();
-    setReviewData(null);
-  }
-
   return (
     <div className="xl:w-1/2 lg:w-9/12 md:w-11/12 sm:w-11/12 mx-auto my-5 tracking-wide">
       <Toaster position="top-center" reverseOrder={false} />
@@ -370,9 +365,12 @@ export default function OrderPage({ params }) {
                     />
                   </figure>
                   <div className="card-body">
-                    <p className="card-title">
+                    <Link
+                      href={`/product/${item.product.id}`}
+                      className="card-title"
+                    >
                       Product {index + 1}: {item.product.name}
-                    </p>
+                    </Link>
                     <p>{convertToRupiah(item.price)}</p>
                     <p>Quantity: {item.quantity}</p>
                   </div>
@@ -430,12 +428,7 @@ export default function OrderPage({ params }) {
                           </button>
                           <div className="modal-action">
                             <form method="dialog">
-                              <button
-                                className="btn"
-                                onClick={handleCloseModal}
-                              >
-                                Close
-                              </button>
+                              <button className="btn">Close</button>
                             </form>
                           </div>
                         </div>

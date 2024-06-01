@@ -49,6 +49,7 @@ export default function UserPage() {
   useEffect(() => {
     const fetchOrders = async () => {
       const orderData = await getAllOrderApi({ sort_by: "created_at desc" });
+      console.log(orderData.data[0].order_items);
       setOrders(orderData);
     };
 
@@ -155,8 +156,8 @@ export default function UserPage() {
                     className="border-b mb-5 pb-5 relative left-0"
                     key={index}
                   >
-                    <Image
-                      src={order?.product?.[0]?.image}
+                    <img
+                      src={order?.order_items[0].product.image}
                       width={100}
                       height={100}
                       alt="Product Image"
